@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/apbraga/Library/Mobile Documents/com~apple~CloudDocs/OneDrive - FEI/Github/C++ Course Udacity/Project 4 Concurrent Traffic Simulator/CppND-Program-a-Concurrent-Traffic-Simulation/src/TrafficLight.cpp
+iostream
+-
+random
+-
+time.h
+-
+TrafficLight.h
+/Users/apbraga/Library/Mobile Documents/com~apple~CloudDocs/OneDrive - FEI/Github/C++ Course Udacity/Project 4 Concurrent Traffic Simulator/CppND-Program-a-Concurrent-Traffic-Simulation/src/TrafficLight.h
+
+/Users/apbraga/Library/Mobile Documents/com~apple~CloudDocs/OneDrive - FEI/Github/C++ Course Udacity/Project 4 Concurrent Traffic Simulator/CppND-Program-a-Concurrent-Traffic-Simulation/src/TrafficLight.h
+mutex
+-
+deque
+-
+condition_variable
+-
+TrafficObject.h
+/Users/apbraga/Library/Mobile Documents/com~apple~CloudDocs/OneDrive - FEI/Github/C++ Course Udacity/Project 4 Concurrent Traffic Simulator/CppND-Program-a-Concurrent-Traffic-Simulation/src/TrafficObject.h
+
+/Users/apbraga/Library/Mobile Documents/com~apple~CloudDocs/OneDrive - FEI/Github/C++ Course Udacity/Project 4 Concurrent Traffic Simulator/CppND-Program-a-Concurrent-Traffic-Simulation/src/TrafficObject.h
+vector
+-
+thread
+-
+mutex
+-
+

@@ -12,10 +12,10 @@ T MessageQueue<T>::receive()
     // FP.5a : The method receive should use std::unique_lock<std::mutex> and _condition.wait() 
     // to wait for and receive new messages and pull them from the queue using move semantics. 
     // The received object should then be returned by the receive function.
-    std::unique_lock<std::mutex> lock(mtx);
-    _cond.wait(lock, [this]{return !queue.empty();});
-    T msg = std::move(_queue.back());
-    _queue.pop_back;
+    std::unique_lock<std::mutex> uLock(_mtx);
+    _cond.wait(uLock, [this]{return !queue.empty();});
+    T msg = std::move(queue.back());
+    queue.pop_back();
 }
 
 template <typename T>
@@ -24,7 +24,7 @@ void MessageQueue<T>::send(T &&msg)
     // FP.4a : The method send should use the mechanisms std::lock_guard<std::mutex> 
     // as well as _condition.notify_one() to add a new message to the queue and afterwards send a notification.
     //lock for execution
-    std::lock_guard<std::mutex> lock(_mtx);
+    std::lock_guard<std::mutex> uLock(_mtx);
     //add to queue
     queue.push_back(std::move(msg));
     _cond.notify_one();
@@ -80,7 +80,7 @@ void TrafficLight::cycleThroughPhases()
     std::uniform_real_distribution<> distr(4000.0, 6000.0);
     double cycle = distr(eng);
     //Get starting time
-    std::chrono::time_point<std::chrono::system_clock> lastUpdate = std::chrono::system_clock::now;
+    auto lastUpdate = std::chrono::system_clock::now();
     //starts infinite loop
     while(true){
         //reduce CPU resouce consumption by sleeping for 1ms
@@ -91,10 +91,10 @@ void TrafficLight::cycleThroughPhases()
         if(elapsedTime >= cycle){
             //flip traffic light state
             if(_currentPhase == TrafficLightPhase::green){
-                _currentPhase == TrafficLightPhase::red;
+                _currentPhase = TrafficLightPhase::red;
             }
             else{
-                _currentPhase == TrafficLightPhase::green;
+                _currentPhase = TrafficLightPhase::green;
             }
 
             //update last update time with current time
