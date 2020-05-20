@@ -12,10 +12,11 @@ T MessageQueue<T>::receive()
     // FP.5a : The method receive should use std::unique_lock<std::mutex> and _condition.wait() 
     // to wait for and receive new messages and pull them from the queue using move semantics. 
     // The received object should then be returned by the receive function.
-    std::unique_lock<std::mutex> uLock(_mtx);
-    _cond.wait(uLock, [this]{return !queue.empty();});
-    T msg = std::move(queue.back());
-    queue.pop_back();
+    std::unique_lock<std::mutex> uLock(_mutex);
+    _cond.wait(uLock, [this]{return !_queue.empty();});
+    T msg = std::move(_queue.back());
+    _queue.pop_back();
+    return msg;
 }
 
 template <typename T>
@@ -24,9 +25,9 @@ void MessageQueue<T>::send(T &&msg)
     // FP.4a : The method send should use the mechanisms std::lock_guard<std::mutex> 
     // as well as _condition.notify_one() to add a new message to the queue and afterwards send a notification.
     //lock for execution
-    std::lock_guard<std::mutex> uLock(_mtx);
+    std::lock_guard<std::mutex> uLock(_mutex);
     //add to queue
-    queue.push_back(std::move(msg));
+    _queue.push_back(std::move(msg));
     _cond.notify_one();
 
 }
@@ -47,8 +48,13 @@ void TrafficLight::waitForGreen()
     // Once it receives TrafficLightPhase::green, the method returns.
     while(true){
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
-        if(_msgQueue.receive() == TrafficLightPhase::green){
+        TrafficLightPhase state = _msgQueue.receive();
+        if(state == TrafficLightPhase::green){
+            //std::cout << "GREEN" << std::endl;
             return;
+        }
+        else{
+            //std::cout << "RED" << std::endl;
         }
     }
 }
@@ -87,14 +93,17 @@ void TrafficLight::cycleThroughPhases()
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
         //calculate elapsed time from last update
         long elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - lastUpdate).count();
+
         //Check if elapsed time is longer than cycle time
         if(elapsedTime >= cycle){
             //flip traffic light state
             if(_currentPhase == TrafficLightPhase::green){
+                //std::cout << "flip to red" << std::endl;
                 _currentPhase = TrafficLightPhase::red;
             }
             else{
                 _currentPhase = TrafficLightPhase::green;
+                //std::cout << "flip to green" << std::endl;
             }
 
             //update last update time with current time
