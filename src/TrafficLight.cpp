@@ -109,6 +109,9 @@ void TrafficLight::cycleThroughPhases()
 
             //inform message queue
             _msgQueue.send(std::move(_currentPhase));
+
+            //gets new random cycle value
+            double cycle = distr(eng);
         }
         
     }
