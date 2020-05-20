@@ -17,12 +17,16 @@ class Vehicle;
 // Also, there should be an std::condition_variable as well as an std::mutex as private members. 
 
 template <class T>
+//T represents the enum TrafficLightPhase as a template
 class MessageQueue
 {
 public:
-
+    void send(T &&phase);
+    T receive();
+    std::deque<T> _queue;
 private:
-    
+    std::condition_variable _cond;
+    std::mutex _mtx;
 };
 
 // FP.1 : Define a class „TrafficLight“ which is a child class of TrafficObject. 
