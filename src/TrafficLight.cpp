@@ -45,6 +45,8 @@ TrafficLightPhase TrafficLight::getCurrentPhase()
 void TrafficLight::simulate()
 {
     // FP.2b : Finally, the private method „cycleThroughPhases“ should be started in a thread when the public method „simulate“ is called. To do this, use the thread queue in the base class. 
+
+    threads.emplace_back(std::thread(&TrafficLight::cycleThroughPhases, this));
 }
 
 // virtual function which is executed in a thread
@@ -72,11 +74,11 @@ void TrafficLight::cycleThroughPhases()
         //Check if elapsed time is longer than cycle time
         if(elapsedTime >= cycle){
             //flip traffic light state
-            if(_currentPhase == TrafficLight::green){
-                _currentPhase == TrafficLight::red;
+            if(_currentPhase == TrafficLightPhase::green){
+                _currentPhase == TrafficLightPhase::red;
             }
             else{
-                _currentPhase == TrafficLight::green;
+                _currentPhase == TrafficLightPhase::green;
             }
 
             //update last update time with current time

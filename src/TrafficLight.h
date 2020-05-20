@@ -5,6 +5,7 @@
 #include <deque>
 #include <condition_variable>
 #include "TrafficObject.h"
+enum TrafficLightPhase {red, green};
 
 // forward declarations to avoid include cycle
 class Vehicle;
@@ -44,7 +45,6 @@ public:
 
 private:
     // typical behaviour methods
-    static enum TrafficLightPhase {red, green};
     TrafficLightPhase _currentPhase;
     void cycleThroughPhases();
     // FP.4b : create a private member of type MessageQueue for messages of type TrafficLightPhase 
