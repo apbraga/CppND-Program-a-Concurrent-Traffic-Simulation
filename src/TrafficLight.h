@@ -23,7 +23,7 @@ class MessageQueue
 public:
     void send(T &&phase);
     T receive();
-    std::deque<T> _queue;
+    std::deque<T> queue;
 private:
     std::condition_variable _cond;
     std::mutex _mtx;
