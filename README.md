@@ -1,8 +1,46 @@
 # CPPND: Program a Concurrent Traffic Simulation
 
+##Rubrics
+1. The project demonstrates an understanding of C++ functions and control structures.
+
+[example](/src/TrafficLight.cpp#L49)
+
+2. The project uses Object Oriented Programming techniques.
+
+[example](/src/TrafficLight.h#L39)
+
+3.Classes use appropriate access specifiers for class members.
+
+[example](/src/TrafficLight.h#L39)
+
+4. Classes abstract implementation details from their interfaces.
+
+[example](/src/TrafficLight.h#L49)
+
+5. Classes encapsulate behavior.
+
+[example](/src/TrafficLight.h#L49)
+
+6. The project uses smart pointers instead of raw pointers.
+
+[example](/src/Intersection.h#L44)
+
+7. The project uses multithreading.
+
+[example](/src/TrafficLight.cpp#L71)
+
+8. A promise and future is used in the project.
+
+[example](/src/Intersection.cpp#L20)
+
+9. A mutex or lock is used in the project.
+
+[example](/src/TrafficLight.cpp#L15)
+
+
 <img src="data/traffic_simulation.gif"/>
 
-This is the project for the fourth course in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213): Concurrency. 
+This is based on the project for the fourth course in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213): Concurrency. 
 
 Throughout the Concurrency course, you have been developing a traffic simulation in which vehicles are moving along streets and are crossing intersections. However, with increasing traffic in the city, traffic lights are needed for road safety. Each intersection will therefore be equipped with a traffic light. In this project, you will build a suitable and thread-safe communication protocol between vehicles and intersections to complete the simulation. Use your knowledge of concurrent programming (such as mutexes, locks and message queues) to implement the traffic lights and integrate them properly in the code base.
 
